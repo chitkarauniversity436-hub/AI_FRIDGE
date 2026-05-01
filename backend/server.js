@@ -51,6 +51,10 @@ app.use('/api/inventory', inventoryRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/family', familyRoutes);
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
