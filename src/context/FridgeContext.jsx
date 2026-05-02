@@ -167,7 +167,7 @@ export const FridgeProvider = ({ children }) => {
 
   const logout = () => {
     dispatch({ type: 'LOGOUT' });
-    window.location.href = '/login';
+    window.location.href = '/';
   };
 
   const apiDispatch = async (action) => {

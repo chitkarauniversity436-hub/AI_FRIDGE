@@ -11,7 +11,7 @@ export default function Login() {
 
   useEffect(() => {
     if (state.token) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [state.token, navigate]);
 
@@ -22,7 +22,7 @@ export default function Login() {
       const success = await login(email, password);
       if (success) {
         setError('Success! Redirecting...');
-        setTimeout(() => { window.location.href = '/'; }, 500);
+        setTimeout(() => { window.location.href = '/dashboard'; }, 500);
       } else {
         setError('Login failed. Server might be unreachable or wrong password.');
       }

@@ -17,17 +17,18 @@ import SettingsPage from './pages/Settings';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import VoiceAssistant from './components/VoiceAssistant';
+import Landing from './pages/Landing';
 
 const PrivateRoute = ({ children }) => {
   const { state } = useContext(FridgeContext);
-  return state.token ? children : <Navigate to="/login" replace />;
+  return state.token ? children : <Navigate to="/" replace />;
 };
 
 const AppLayout = ({ children }) => {
   const { state, logout } = useContext(FridgeContext);
   
   const navItems = [
-    { to: '/', icon: <Home size={20} />, label: 'Dashboard' },
+    { to: '/dashboard', icon: <Home size={20} />, label: 'Dashboard' },
     { to: '/inventory', icon: <Package size={20} />, label: 'Inventory' },
     { to: '/scanner', icon: <ScanLine size={20} />, label: 'Scanner' },
     { to: '/recipes', icon: <Utensils size={20} />, label: 'AI Recipes' },
@@ -88,6 +89,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           {/* Public Auth Routes */}
+          <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           
@@ -96,7 +98,7 @@ export default function App() {
   <PrivateRoute>
     <AppLayout>
       <Routes>
-        <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="inventory" element={<Inventory />} />
         <Route path="scanner" element={<Scanner />} />
         <Route path="recipes" element={<Recipes />} />
@@ -107,7 +109,7 @@ export default function App() {
         <Route path="analytics" element={<Analytics />} />
         <Route path="orders" element={<Orders />} />
         <Route path="settings" element={<SettingsPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </AppLayout>
   </PrivateRoute>

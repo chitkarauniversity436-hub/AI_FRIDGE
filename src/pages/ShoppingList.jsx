@@ -159,9 +159,9 @@ export default function ShoppingList() {
           font-size: 11px;
           font-weight: 600;
           text-decoration: none;
-          color: #fff;
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(255,255,255,0.1);
+          color: var(--text-main);
+          background: rgba(0,0,0,0.03);
+          border: 1px solid var(--border-color);
           transition: all 0.2s ease;
         }
         .buy-pill:hover {

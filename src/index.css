@@ -1,14 +1,17 @@
+html {
+  scroll-behavior: smooth;
+}
 :root {
-  --bg-dark: #020617;
-  --bg-card: rgba(15, 23, 42, 0.8);
-  --bg-card-hover: rgba(30, 41, 59, 0.9);
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --border-color: rgba(255, 255, 255, 0.08);
+  --bg-dark: #0b0914;
+  --bg-card: rgba(18, 12, 33, 0.8);
+  --bg-card-hover: rgba(28, 18, 48, 0.9);
+  --text-main: #fdfcff;
+  --text-muted: #a49ab5;
+  --border-color: rgba(255, 0, 255, 0.15);
   
-  --primary: #00f5a0;
-  --primary-glow: rgba(0, 245, 160, 0.4);
-  --secondary: #00d9f5;
+  --primary: #ff00ff;
+  --primary-glow: rgba(255, 0, 255, 0.5);
+  --secondary: #8a2be2;
   
   --red: #ef4444;
   --orange: #f97316;
@@ -103,9 +106,10 @@ body {
 }
 
 .nav-item.active {
-  background: linear-gradient(90deg, rgba(0, 245, 160, 0.15), transparent);
+  background: linear-gradient(90deg, rgba(255, 0, 255, 0.15), transparent);
   color: var(--primary);
   border-left: 3px solid var(--primary);
+  text-shadow: 0 0 8px var(--primary-glow);
 }
 
 .main-content {
@@ -146,7 +150,7 @@ h1, h2, h3 { color: var(--text-main); }
 
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: #000;
+  color: #fff;
   border: none;
   box-shadow: 0 4px 15px var(--primary-glow);
   font-weight: 600;
@@ -162,11 +166,12 @@ h1, h2, h3 { color: var(--text-main); }
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 24px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+  border-color: var(--primary);
 }
 
 .badge {
@@ -190,7 +195,7 @@ input, select, textarea {
   color: var(--text-main);
   font-family: inherit;
 }
-input:focus {
+input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--primary);
   box-shadow: 0 0 0 2px var(--primary-glow);
@@ -236,4 +241,293 @@ input:focus {
   .nav-item span { display: none; }
   .main-content { margin-left: 0; padding: 20px; }
   .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* Landing Page Styles */
+.landing-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at 70% 50%, rgba(138, 43, 226, 0.15) 0%, var(--bg-dark) 50%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.landing-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 50px;
+  margin: 30px auto;
+  width: 90%;
+  max-width: 1200px;
+  z-index: 10;
+}
+.landing-nav-links {
+  display: flex;
+  gap: 30px;
+}
+.landing-nav-links a {
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.landing-nav-links a:hover {
+  color: var(--primary);
+}
+.landing-hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 10;
+}
+.landing-content {
+  max-width: 500px;
+}
+.landing-content h1 {
+  font-size: 56px;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+.landing-content p {
+  color: var(--text-muted);
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+.landing-input-group {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 30px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.landing-input-group input {
+  background: transparent;
+  border: none;
+  padding: 12px 20px;
+  color: #fff;
+  flex: 1;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.landing-input-group .btn-primary {
+  border-radius: 20px;
+  padding: 12px 24px;
+}
+
+/* CSS Animated Fridge */
+.fridge-container {
+  perspective: 1200px;
+  width: 350px;
+  height: 500px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fridge-body {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #1a1a2e, #11111f);
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Internal Glowing Shelves */
+.fridge-shelf {
+  flex: 1;
+  border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding-bottom: 10px;
+  box-shadow: inset 0 -10px 20px rgba(0, 255, 255, 0.05);
+}
+
+.virtual-item {
+  font-size: 28px;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+  animation: float 3s ease-in-out infinite alternate;
+}
+
+.virtual-item:nth-child(even) {
+  filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+  animation-delay: 1.5s;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+
+/* Doors */
+.fridge-door-left, .fridge-door-right {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(145deg, #232336, #161623);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 2;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.fridge-door-left {
+  left: 0;
+  transform-origin: left center;
+  border-radius: 20px 0 0 20px;
+}
+
+.fridge-door-right {
+  right: 0;
+  transform-origin: right center;
+  border-radius: 0 20px 20px 0;
+}
+
+/* Handles */
+.fridge-handle {
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%);
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+.fridge-door-left .fridge-handle { right: 10px; }
+.fridge-door-right .fridge-handle { left: 10px; }
+
+/* Animation on Hover */
+.fridge-container:hover .fridge-door-left {
+  transform: rotateY(-110deg);
+}
+.fridge-container:hover .fridge-door-right {
+  transform: rotateY(110deg);
+}
+.fridge-container:hover .fridge-body {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 50px rgba(0, 255, 255, 0.2);
+}
+
+/* Landing Section Styles */
+.landing-section {
+  padding: 100px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+.landing-section.alt-bg {
+  background: rgba(255, 255, 255, 0.02);
+  max-width: 100%;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+.section-title {
+  font-size: 36px;
+  margin-bottom: 60px;
+  background: linear-gradient(to right, #fff, var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.feature-card {
+  padding: 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  transition: all 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--primary);
+  box-shadow: 0 10px 30px rgba(255, 0, 255, 0.1);
+}
+.feature-icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.feature-card h3 {
+  margin-bottom: 15px;
+  color: #fff;
+}
+.feature-card p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.about-content p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+.step {
+  position: relative;
+}
+.step-number {
+  width: 50px;
+  height: 50px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+.step h4 {
+  margin-bottom: 10px;
+  color: #fff;
+}
+.step p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.landing-footer {
+  padding: 60px 40px;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 968px) {
+  .features-grid, .steps-container {
+    grid-template-columns: 1fr;
+  }
 }

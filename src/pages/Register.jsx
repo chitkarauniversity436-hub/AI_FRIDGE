@@ -12,7 +12,7 @@ export default function Register() {
 
   useEffect(() => {
     if (state.token) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [state.token, navigate]);
 
