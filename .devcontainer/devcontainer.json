@@ -1,4 +1,16 @@
 {
   "name": "AI Fridge",
-  "postCreateCommand": "bash .devcontainer/postCreateCommand.sh"
+  "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
+  "postStartCommand": "bash .devcontainer/start.sh",
+  "forwardPorts": [5173, 5000],
+  "portsAttributes": {
+    "5173": {
+      "label": "Frontend",
+      "onAutoForward": "openBrowser"
+    },
+    "5000": {
+      "label": "Backend",
+      "onAutoForward": "silent"
+    }
+  }
 }
