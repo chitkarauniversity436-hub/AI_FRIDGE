@@ -1,0 +1,4 @@
+{
+  "name": "AI Fridge",
+  "postCreateCommand": "bash .devcontainer/postCreateCommand.sh"
+}
