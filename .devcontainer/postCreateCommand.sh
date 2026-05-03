@@ -8,5 +8,6 @@ fi
 
 npm install
 
-cd ../frontend
+cd ..
+
 npm install
