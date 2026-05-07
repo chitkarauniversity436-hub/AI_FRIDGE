@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Mic, MicOff, Loader2 } from 'lucide-react';
 import { useVoice } from '../hooks/useVoice';
 import { useAI } from '../hooks/useAI';
+//hi 
 import { FridgeContext } from '../context/FridgeContext';
 
 export default function VoiceAssistant() {
