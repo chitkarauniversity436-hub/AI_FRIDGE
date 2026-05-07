@@ -24,6 +24,8 @@ const initialState = {
   family: [],
   settings: {
     apiKey: '',
+    voiceApiKey: '',       // separate key for voice assistant
+    voiceProvider: 'groq', // 'gemini' | 'openai' | 'groq'
     healthMode: 'none',
     notifications: true,
   },

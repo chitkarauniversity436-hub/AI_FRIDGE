@@ -6,11 +6,20 @@ import { Settings, Users, Key, Moon, Sun } from 'lucide-react';
 export default function SettingsPage() {
   const { state, dispatch } = useContext(FridgeContext);
   
-  const [apiKey, setApiKey] = useState(state.settings.apiKey || '');
-  const [saved, setSaved] = useState(false);
+  const [apiKey, setApiKey]           = useState(state.settings.apiKey || '');
+  const [voiceApiKey, setVoiceApiKey] = useState(state.settings.voiceApiKey || '');
+  const [voiceProvider, setVoiceProvider] = useState(state.settings.voiceProvider || 'groq');
+  const [saved, setSaved]             = useState(false);
+
+  const PROVIDERS = [
+    { id: 'groq',   label: 'Groq (Llama 3)',        badge: '🟢 Free',       hint: 'Get free key → console.groq.com',     placeholder: 'gsk_...' },
+    { id: 'gemini', label: 'Google Gemini',          badge: '🟡 Free/Paid',  hint: 'Get key → aistudio.google.com',       placeholder: 'AIza...' },
+    { id: 'openai', label: 'OpenAI (ChatGPT)',        badge: '🔵 Paid',       hint: 'Get key → platform.openai.com',       placeholder: 'sk-...' },
+  ];
+  const activeProvider = PROVIDERS.find(p => p.id === voiceProvider) || PROVIDERS[0];
 
   const saveSettings = () => {
-    dispatch({ type: 'UPDATE_SETTINGS', payload: { apiKey } });
+    dispatch({ type: 'UPDATE_SETTINGS', payload: { apiKey, voiceApiKey, voiceProvider } });
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
   };
@@ -25,16 +34,59 @@ export default function SettingsPage() {
           
           <div className="card">
             <h2 style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}><Key size={20} /> AI Configuration</h2>
+
+            {/* Main API key */}
             <div style={{ marginBottom: '16px' }}>
-              <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)' }}>Gemini API Key</label>
-              <input 
-                type="password" 
-                value={apiKey} 
+              <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)' }}>Gemini API Key <span style={{ fontSize: '11px' }}>(Recipes, Nutrition, Meal Plan…)</span></label>
+              <input
+                type="password"
+                value={apiKey}
                 onChange={e => setApiKey(e.target.value)}
-                placeholder="AI Studio API Key..." 
+                placeholder="AI Studio API Key..."
               />
-              <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '8px' }}>
-                Required for real AI features. If empty, app uses realistic mock data.
+              <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '6px' }}>
+                Required for AI features. If empty, app uses mock data.
+              </small>
+            </div>
+
+            {/* Voice assistant section */}
+            <div style={{ marginBottom: '20px', paddingTop: '12px', borderTop: '1px solid var(--border-color)' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', color: 'var(--text-muted)', fontWeight: 600 }}>
+                🎙️ Voice Assistant Provider
+              </label>
+
+              {/* Provider pills */}
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '14px' }}>
+                {PROVIDERS.map(p => (
+                  <button
+                    key={p.id}
+                    onClick={() => setVoiceProvider(p.id)}
+                    style={{
+                      padding: '6px 14px',
+                      borderRadius: '20px',
+                      border: `2px solid ${voiceProvider === p.id ? 'var(--primary)' : 'var(--border-color)'}`,
+                      background: voiceProvider === p.id ? 'rgba(0,245,160,0.12)' : 'transparent',
+                      color: voiceProvider === p.id ? 'var(--primary)' : 'var(--text-muted)',
+                      cursor: 'pointer',
+                      fontSize: '13px',
+                      fontWeight: voiceProvider === p.id ? 600 : 400,
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    {p.badge} {p.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Key input for selected provider */}
+              <input
+                type="password"
+                value={voiceApiKey}
+                onChange={e => setVoiceApiKey(e.target.value)}
+                placeholder={`${activeProvider.label} API key... (${activeProvider.placeholder})`}
+              />
+              <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '6px' }}>
+                {activeProvider.hint} &nbsp;·&nbsp; Leave empty to use the main Gemini key above.
               </small>
             </div>
             

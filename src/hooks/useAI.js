@@ -1,35 +1,155 @@
 import { useCallback } from 'react';
 
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+// Primary model (15 RPM free). Falls back to lite (30 RPM free) on quota errors.
+const GEMINI_FLASH      = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+const GEMINI_FLASH_LITE = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent';
+
+/**
+ * Send one request to a Gemini endpoint.
+ * Returns { ok, text, status, errorMsg }
+ */
+const callGemini = async (url, key, prompt, maxTokens = 1500) => {
+  let res;
+  try {
+    res = await fetch(`${url}?key=${key}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.8, maxOutputTokens: maxTokens },
+      }),
+    });
+  } catch (networkErr) {
+    return { ok: false, status: 0, errorMsg: 'Network error: cannot reach Gemini API.' };
+  }
+
+  if (!res.ok) {
+    let errorMsg = `Gemini API error (HTTP ${res.status})`;
+    try {
+      const body = await res.json();
+      const detail = body?.error?.message || '';
+      if (detail.toLowerCase().includes('api key not valid') || res.status === 400) {
+        errorMsg = 'Invalid API key. Double-check the key you entered in Settings.';
+      } else if (res.status === 403) {
+        errorMsg = 'API key lacks permission. Enable "Generative Language API" in Google Cloud Console.';
+      } else if (res.status === 429) {
+        errorMsg = 'Rate limit hit on this model — retrying with a faster model...';
+      } else if (detail) {
+        errorMsg = detail;
+      }
+    } catch (_) { /* keep default */ }
+    return { ok: false, status: res.status, errorMsg };
+  }
+
+  const data = await res.json();
+  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+  return { ok: true, text: text || null };
+};
+
+/**
+ * Calls flash first; on 429 automatically falls back to flash-lite.
+ * Throws a descriptive Error so callers can surface it in the UI.
+ */
+const geminiPost = async (key, prompt, maxTokens = 1500) => {
+  // Try primary model
+  let result = await callGemini(GEMINI_FLASH, key, prompt, maxTokens);
+
+  // Auto-fallback to lite on rate limit
+  if (!result.ok && result.status === 429) {
+    console.warn('gemini-2.0-flash quota hit — falling back to gemini-2.0-flash-lite');
+    result = await callGemini(GEMINI_FLASH_LITE, key, prompt, maxTokens);
+    if (!result.ok && result.status === 429) {
+      throw new Error('Both Gemini models are rate-limited. Wait ~60 seconds and try again.');
+    }
+  }
+
+  if (!result.ok) throw new Error(result.errorMsg);
+  if (!result.text) throw new Error('Gemini returned an empty response. Quota may be exhausted.');
+  return result.text;
+};
+
+// ─────────────────────────────────────────────────────────────────
+// OpenAI (ChatGPT) — gpt-4o-mini is cheap (~$0.00015 / 1K tokens)
+// Free trial: $5 credit on sign-up → platform.openai.com
+// ─────────────────────────────────────────────────────────────────
+const callOpenAI = async (key, prompt, maxTokens = 500) => {
+  let res;
+  try {
+    res = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: maxTokens,
+        temperature: 0.8,
+      }),
+    });
+  } catch (err) {
+    throw new Error('Network error: cannot reach OpenAI API.');
+  }
+  if (!res.ok) {
+    let msg = `OpenAI error (HTTP ${res.status})`;
+    try {
+      const b = await res.json();
+      if (res.status === 401) msg = 'Invalid OpenAI API key. Check platform.openai.com → API Keys.';
+      else if (res.status === 429) msg = 'OpenAI rate limit or quota exceeded. Check your billing at platform.openai.com.';
+      else if (res.status === 403) msg = 'OpenAI API key does not have permission for this model.';
+      else msg = b?.error?.message || msg;
+    } catch (_) {}
+    throw new Error(msg);
+  }
+  const data = await res.json();
+  const text = data?.choices?.[0]?.message?.content?.trim();
+  if (!text) throw new Error('OpenAI returned an empty response.');
+  return text;
+};
+
+// ─────────────────────────────────────────────────────────────────
+// Groq — FREE tier: 30 req/min, 14 400 req/day, ultra-fast Llama
+// Sign up free → console.groq.com → API Keys
+// ─────────────────────────────────────────────────────────────────
+const callGroq = async (key, prompt, maxTokens = 500) => {
+  let res;
+  try {
+    res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+      body: JSON.stringify({
+        model: 'llama-3.1-8b-instant',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: maxTokens,
+        temperature: 0.8,
+      }),
+    });
+  } catch (err) {
+    throw new Error('Network error: cannot reach Groq API.');
+  }
+  if (!res.ok) {
+    let msg = `Groq error (HTTP ${res.status})`;
+    try {
+      const b = await res.json();
+      if (res.status === 401) msg = 'Invalid Groq API key. Check console.groq.com → API Keys.';
+      else if (res.status === 429) msg = 'Groq rate limit hit. Wait a moment — free tier resets every minute.';
+      else msg = b?.error?.message || msg;
+    } catch (_) {}
+    throw new Error(msg);
+  }
+  const data = await res.json();
+  const text = data?.choices?.[0]?.message?.content?.trim();
+  if (!text) throw new Error('Groq returned an empty response.');
+  return text;
+};
 
 export const useAI = (apiKey) => {
   const ask = useCallback(async (prompt) => {
     if (!apiKey) return null;
     const cleanKey = apiKey.trim();
     try {
-      const res = await fetch(`${GEMINI_API_URL}?key=${cleanKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.8, maxOutputTokens: 1500 },
-        }),
-      });
-      if (!res.ok) {
-        const errorBody = await res.json();
-        console.error("Gemini API Error:", errorBody);
-        return null;
-      }
-      const data = await res.json();
-      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!text) {
-        console.warn("AI returned empty content. Check your API quota.");
-        return null;
-      }
-      return text;
+      return await geminiPost(cleanKey, prompt, 1500);
     } catch (err) {
-      console.error("Gemini Network Error (Check your Internet):", err);
-      return null;
+      console.error('Gemini ask() error:', err.message);
+      return null;   // non-voice callers fall back to mock data on null
     }
   }, [apiKey]);
   
@@ -163,12 +283,18 @@ Only respond with JSON.`;
   }, [ask]);
 
 
-  const askVoice = useCallback(async (prompt) => {
-    const aiPrompt = `The user is talking to their smart fridge. They said: "${prompt}". 
-    Give a short, helpful, and friendly response. If they ask about recipes or food, give a quick suggestion based on common fridge items.
-    Keep it under 2 sentences.`;
-    return await ask(aiPrompt);
-  }, [ask]);
+  // askVoice throws real errors so VoiceAssistant can display exactly what failed.
+  // provider: 'gemini' | 'openai' | 'groq'
+  const askVoice = useCallback(async (prompt, provider = 'gemini') => {
+    if (!apiKey || !apiKey.trim()) {
+      throw new Error('No API key set for voice assistant. Go to Settings → AI Configuration to add one.');
+    }
+    const key = apiKey.trim();
+    if (provider === 'openai') return await callOpenAI(key, prompt, 500);
+    if (provider === 'groq')   return await callGroq(key, prompt, 500);
+    // default: gemini (with flash-lite fallback)
+    return await geminiPost(key, prompt, 800);
+  }, [apiKey]);
 
   return { getRecipes, getMealPlan, getShoppingList, askVoice, getNutrition, analyzeImage, getPriceComparison };
 };
