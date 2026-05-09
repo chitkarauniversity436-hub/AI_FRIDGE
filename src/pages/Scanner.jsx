@@ -58,13 +58,21 @@ export default function Scanner() {
       if (data.status === 1) {
         const product = data.product;
         const name = product.product_name || 'Unknown Product';
-        const category = product.categories ? product.categories.split(',')[0].trim() : 'Other';
+        let rawCategory = product.categories ? product.categories.toLowerCase() : '';
+        let mappedCategory = 'Other';
+        if (rawCategory.includes('dairy') || rawCategory.includes('lait') || rawCategory.includes('cheese') || rawCategory.includes('milk')) mappedCategory = 'Dairy';
+        else if (rawCategory.includes('vegetable') || rawCategory.includes('légume')) mappedCategory = 'Vegetables';
+        else if (rawCategory.includes('fruit')) mappedCategory = 'Fruits';
+        else if (rawCategory.includes('meat') || rawCategory.includes('fish') || rawCategory.includes('poisson') || rawCategory.includes('viande') || rawCategory.includes('chicken') || rawCategory.includes('poulet')) mappedCategory = 'Protein';
+        else if (rawCategory.includes('grain') || rawCategory.includes('cereal') || rawCategory.includes('bread') || rawCategory.includes('pain')) mappedCategory = 'Grains';
+        else if (rawCategory.includes('frozen') || rawCategory.includes('glace') || rawCategory.includes('surgelé')) mappedCategory = 'Frozen';
+        else if (rawCategory.includes('beverage') || rawCategory.includes('boisson') || rawCategory.includes('drink')) mappedCategory = 'Beverages';
         
         dispatch({ 
           type: 'ADD_ITEM', 
           payload: { 
             name: name,
-            category: category,
+            category: mappedCategory,
             quantity: 1,
             unit: "pc",
             id: Date.now() + Math.random(), 
