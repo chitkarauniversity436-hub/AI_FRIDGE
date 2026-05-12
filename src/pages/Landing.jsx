@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import im from '/src/assets/logo.png.png'
 export default function Landing() {
   const navigate = useNavigate();
 
@@ -9,16 +9,26 @@ export default function Landing() {
       {/* Navbar */}
       <nav className="landing-nav">
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: '24px', height: '24px', borderRadius: '4px', background: 'var(--primary)' }}></div>
+          <img
+            src={im}
+            alt="FridgeIQ Logo"
+            style={{
+              width: '40px',
+              height: '40px',
+              objectFit: 'contain',
+              
+            }}
+          />
+          {/* <div style={{ width: '24px', height: '24px', borderRadius: '4px', background: 'var(--primary)' }}></div> */}
           <h2 style={{ fontSize: '20px', fontWeight: 'bold', margin: 0, color: '#fff' }}>FridgeIQ</h2>
         </div>
-        
+
         <div className="landing-nav-links">
           <a href="#features">Features</a>
           <a href="#about">About</a>
           <a href="#how-it-works">Working</a>
         </div>
-        
+
         <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
           <Link to="/register" style={{ color: '#fff', textDecoration: 'none', fontSize: '14px', fontWeight: '500' }}>Sign Up</Link>
           <Link to="/login" className="btn btn-primary" style={{ padding: '8px 24px', borderRadius: '20px' }}>Login</Link>
@@ -28,11 +38,11 @@ export default function Landing() {
       {/* Hero Section */}
       <main className="landing-hero">
         <div className="landing-content">
-          <h1>Get ready for the<br/>new era of AI</h1>
+          <h1>Get ready for the<br />new era of AI</h1>
           <p>
             Experience the future of kitchen management. Our smart AI tracks your groceries, plans your meals, and reduces waste instantly.
           </p>
-          
+
           <div className="landing-input-group">
             <input type="email" placeholder="Enter email" />
             <button className="btn btn-primary" onClick={() => navigate('/register')}>Get Started</button>
@@ -58,7 +68,7 @@ export default function Landing() {
               <div className="virtual-item">🍇</div>
             </div>
           </div>
-          
+
           <div className="fridge-door-left">
             <div className="fridge-handle"></div>
           </div>
@@ -94,8 +104,8 @@ export default function Landing() {
         <div className="about-content">
           <h2 className="section-title">About FridgeIQ</h2>
           <p>
-            FridgeIQ is more than just a list; it's your personal kitchen assistant. 
-            Designed for the modern home, we use advanced AI to help you reduce food waste, 
+            FridgeIQ is more than just a list; it's your personal kitchen assistant.
+            Designed for the modern home, we use advanced AI to help you reduce food waste,
             save money, and eat healthier every single day.
           </p>
         </div>
