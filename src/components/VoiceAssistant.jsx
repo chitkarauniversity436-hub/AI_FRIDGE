@@ -3,6 +3,8 @@ import { Mic, MicOff, Loader2, Volume2, X } from 'lucide-react';
 import { useVoice } from '../hooks/useVoice';
 import { useAI } from '../hooks/useAI';
 //hi 
+
+//hhhhhh
 import { FridgeContext } from '../context/FridgeContext';
 
 export default function VoiceAssistant() {
