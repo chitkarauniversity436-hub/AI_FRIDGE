@@ -5,6 +5,8 @@ import { useAI } from '../hooks/useAI';
 //hi 
 
 //hhhhhh
+//hello
+
 import { FridgeContext } from '../context/FridgeContext';
 
 export default function VoiceAssistant() {
