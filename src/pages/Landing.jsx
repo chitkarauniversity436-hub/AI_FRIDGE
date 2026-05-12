@@ -16,7 +16,7 @@ export default function Landing() {
         <div className="landing-nav-links">
           <a href="#features">Features</a>
           <a href="#about">About</a>
-          <a href="#how-it-works">How it Works</a>
+          <a href="#how-it-works">Working</a>
         </div>
         
         <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
