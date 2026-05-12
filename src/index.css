@@ -7,9 +7,9 @@ html {
   --bg-card-hover: rgba(28, 18, 48, 0.9);
   --text-main: #fdfcff;
   --text-muted: #a49ab5;
-  --border-color: rgba(255, 0, 255, 0.15);
+  --border-color: rgba(25, 0, 255, 0.15);
   
-  --primary: #ff00ff;
+  --primary: #00ffaa;
   --primary-glow: rgba(255, 0, 255, 0.5);
   --secondary: #8a2be2;
   
@@ -306,7 +306,7 @@ input:focus, select:focus, textarea:focus {
 }
 .landing-input-group {
   display: flex;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(45, 137, 17, 0.05);
   border-radius: 30px;
   padding: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -367,7 +367,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .virtual-item:nth-child(even) {
-  filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+  filter: drop-shadow(0 0 10px rgba(0, 238, 255, 0.5));
   animation-delay: 1.5s;
 }
 
