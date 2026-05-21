@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Mic, MicOff, Loader2, Volume2, X } from 'lucide-react';
-import { useVoice } from '../hooks/useVoice';
+import { useVoice } from '../hooks/useVoice';    
 import { useAI } from '../hooks/useAI';
 //hi 
 
@@ -45,7 +45,7 @@ export default function VoiceAssistant() {
     speak(msg);
   };
 
-  const handleVoiceClick = async () => {
+  const handleVoiceClick = async () => {             //handle voice click when click on mick
     if (isListening || isProcessing) return;
 
     setErrorMsg('');
