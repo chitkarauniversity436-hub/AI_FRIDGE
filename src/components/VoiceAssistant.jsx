@@ -12,7 +12,7 @@ import { FridgeContext } from '../context/FridgeContext';
 export default function VoiceAssistant() {
   const [isListening, setIsListening]   = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [isSpeaking, setIsSpeaking]     = useState(false);
+  const [isSpeaking, setIsSpeaking]     = useState(false);         
   const [status, setStatus]             = useState('');   // short status line
   const [response, setResponse]         = useState('');   // AI reply bubble
   const [errorMsg, setErrorMsg]         = useState('');   // error bubble
@@ -31,7 +31,7 @@ export default function VoiceAssistant() {
     if (hideTimer.current) clearTimeout(hideTimer.current);
     hideTimer.current = setTimeout(() => {
       setResponse('');
-      setErrorMsg('');
+      setErrorMsg('');      // setting response to null
       setStatus('');
     }, 9000);
   };
