@@ -13,7 +13,7 @@ const seedData = async () => {
     await Item.deleteMany({});
     await User.deleteMany({});
     await Order.deleteMany({});
-    await FamilyMember.deleteMany({});
+    await FamilyMember.deleteMany({});                        
 
     console.log('Creating Admin User...');
     const salt = await bcrypt.genSalt(10);
@@ -24,7 +24,7 @@ const seedData = async () => {
       email: 'admin@home.com',
       password: hashedPassword,
       role: 'Admin'
-    });
+    });                                                   // for admin default email and password
     await adminUser.save();
 
     console.log('Inserting seed items...');
