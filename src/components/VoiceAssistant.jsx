@@ -32,7 +32,7 @@ export default function VoiceAssistant() {
     hideTimer.current = setTimeout(() => {
       setResponse('');
       setErrorMsg('');
-      setStatus('');
+      setStatus('');                        //for schedulr
     }, 9000);
   };
 
