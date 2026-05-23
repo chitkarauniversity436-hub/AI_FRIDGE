@@ -80,7 +80,7 @@ export default function Landing() {
 
       {/* Details Sections */}
       <section id="features" className="landing-section">
-        <h2 className="section-title">Core Features</h2>
+        <h2 className="section-title">Core Features</h2>                 //features 
         <div className="features-grid">
           <div className="feature-card">
             <div className="feature-icon">📦</div>
