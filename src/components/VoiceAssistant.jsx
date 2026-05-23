@@ -7,7 +7,7 @@ import { useAI } from '../hooks/useAI';
 //hhhhhh
 //hello
 
-import { FridgeContext } from '../context/FridgeContext';
+import { FridgeContext } from '../context/FridgeContext';    //loading fridge component
 
 export default function VoiceAssistant() {
   const [isListening, setIsListening]   = useState(false);
