@@ -67,7 +67,9 @@ export default function Login() {
         </form>
 
         <p style={{ textAlign: 'center', marginTop: '20px', color: 'var(--text-muted)' }}>
-          Don't have an account? <Link to="/register" style={{ color: 'var(--primary)', textDecoration: 'none' }}>Register here</Link>
+          Don't have an account? <Link to="/register" style={{ color: 'var(--primary)', textDecoration: 'none' }}>Register here</Link>   
+          {/* required in some case */} 
+          {/*But important  */}
         </p>
       </div>
     </div>
