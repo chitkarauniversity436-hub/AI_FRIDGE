@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, NavLink, Navigate } from 'react-router-do
 import { FridgeProvider, FridgeContext } from './context/FridgeContext';
 import { Home, Package, ScanLine, Utensils, CalendarDays, Activity, ShoppingCart, Bell, BarChart2, Truck, Settings, LogOut } from 'lucide-react';
 
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard';                // Not have to render in all cases but its your choice
 import Inventory from './pages/Inventory';
 import Scanner from './pages/Scanner';
 import Recipes from './pages/Recipes';
@@ -16,7 +16,7 @@ import Orders from './pages/Orders';
 import SettingsPage from './pages/Settings';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import VoiceAssistant from './components/VoiceAssistant';
+import VoiceAssistant from './components/VoiceAssistant';                                
 import Landing from './pages/Landing';
 
 const PrivateRoute = ({ children }) => {
