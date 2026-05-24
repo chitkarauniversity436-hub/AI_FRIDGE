@@ -12,7 +12,8 @@ export default function Inventory() {
   const [search, setSearch] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // Modal State
+  // Modal State 
+  // required in all cases
   const [showModal, setShowModal] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [formData, setFormData] = useState({
@@ -31,7 +32,9 @@ export default function Inventory() {
     if(confirm('Permanently remove this item from your fridge?')) {
       dispatch({ type: 'REMOVE_ITEM', payload: id });
     }
-  };
+  }; 
+
+  //handle delete not required
 
   const handleOpenAdd = () => {
     setEditingItem(null);
