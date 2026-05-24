@@ -130,9 +130,10 @@ export default function VoiceAssistant() {
     : isProcessing
     ? '0 0 20px rgba(245,158,11,0.5)'
     : '0 10px 25px var(--primary-glow)';
-
+  
+ //not required
   return (
-    <>
+    <> 
       {/* ── Floating Mic Button ─────────────────────────────────── */}
       <button
         id="voice-assistant-btn"
@@ -237,7 +238,7 @@ export default function VoiceAssistant() {
         </div>
       )}
 
-      {/* ── Error bubble ────────────────────────────────────────── */}
+      {/* ── Error bubble ────────────────────────────────────────── */} 
       {errorMsg && (
         <div style={{
           position: 'fixed',
