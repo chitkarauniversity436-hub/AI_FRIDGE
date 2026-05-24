@@ -8,7 +8,7 @@ import Inventory from './pages/Inventory';
 import Scanner from './pages/Scanner';
 import Recipes from './pages/Recipes';
 import MealPlanner from './pages/MealPlanner';
-import Nutrition from './pages/Nutrition';
+import Nutrition from './pages/Nutrition';                                     // For importing nutriton component data
 import ShoppingList from './pages/ShoppingList';
 import Alerts from './pages/Alerts';
 import Analytics from './pages/Analytics';
