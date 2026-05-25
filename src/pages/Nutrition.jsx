@@ -4,9 +4,12 @@ import { getTotalNutrition, formatNutrient, CATEGORY_ICONS, getScaledNutrient } 
 import { Activity, Flame, Beef, Wheat, Droplet } from 'lucide-react';
 
 export default function Nutrition() {
-  const { state } = useContext(FridgeContext);
+  const { state } = useContext(FridgeContext);                                                 
   const totals = getTotalNutrition(state.inventory);
 
+  // totals Stocs hold
+
+  
   return (
     <div className="page-content fade-in">
       <h1 className="page-title">Nutrition Analyzer</h1>
