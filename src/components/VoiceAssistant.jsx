@@ -267,7 +267,9 @@ export default function VoiceAssistant() {
             </button>
           </div>
         </div>
-      )}
+      )}                                             
+
+      {/* NOt handling the Dismiss Event  */}
 
       <style>{`
         @keyframes slideUp {
