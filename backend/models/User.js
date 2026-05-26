@@ -16,4 +16,6 @@ userSchema.set('toJSON', {
   }
 });
 
+//random user of any kind
+
 module.exports = mongoose.model('User', userSchema);
