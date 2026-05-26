@@ -5,6 +5,8 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 router.use(authMiddleware);
 
+
+//By default route
 router.get('/', async (req, res) => {
   try {
     const members = await FamilyMember.find({ user: req.user.id });
