@@ -22,5 +22,5 @@ orderSchema.set('toJSON', {
     delete ret.__v;
   }
 });
-
+         //Required in some cases
 module.exports = mongoose.model('Order', orderSchema);
