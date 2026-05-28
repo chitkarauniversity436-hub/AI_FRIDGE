@@ -1,5 +1,6 @@
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: smooth;  
+  /*Not required in some cases  */
 }
 :root {
   --bg-dark: #e8ecf1;
@@ -34,6 +35,8 @@ html {
   --primary-text: #0d0d0d;
   --primary-glow: rgba(255, 255, 255, 0.1);
 }
+
+/* bg-hover is used if required */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
