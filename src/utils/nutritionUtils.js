@@ -9,6 +9,8 @@ export const CATEGORY_ICONS = {
   Other:      '📦',
 };
 
+// Also import you own symbol
+
 export const CATEGORIES = Object.keys(CATEGORY_ICONS);
 
 export const getScaledNutrient = (value, quantity, unit) => {
