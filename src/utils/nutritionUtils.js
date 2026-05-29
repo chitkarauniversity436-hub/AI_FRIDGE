@@ -11,6 +11,8 @@ export const CATEGORY_ICONS = {
 
 export const CATEGORIES = Object.keys(CATEGORY_ICONS);
 
+// Also categoreies more items
+
 export const getScaledNutrient = (value, quantity, unit) => {
   const q = parseFloat(quantity) || 1;
   const v = parseFloat(value) || 0;
