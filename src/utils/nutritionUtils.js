@@ -47,6 +47,7 @@ export const getCategoryBreakdown = (items) => {
   return Object.entries(map).map(([name, value]) => ({ name, value }));
 };
 
+//Not required
 export const HEALTH_MODES = [
   { id: 'none',       label: 'No Filter',   icon: '🍽️' },
   { id: 'diabetic',   label: 'Diabetic',    icon: '💉' },
