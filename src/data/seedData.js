@@ -23,7 +23,7 @@ export const seedOrders = [
 ];
 
 export const seedFamilyMembers = [
-  { id: 'u1', name: 'You (Admin)', avatar: '👤', role: 'Admin', email: 'admin@home.com' },
+  { id: 'u1', name: 'You (Admin)', aatar: '👤', role: 'Admin', email: 'admin@home.com' },
   { id: 'u2', name: 'Mom', avatar: '👩', role: 'Member', email: 'mom@home.com' },
   { id: 'u3', name: 'Dad', avatar: '👨', role: 'Member', email: 'dad@home.com' },
 ];
