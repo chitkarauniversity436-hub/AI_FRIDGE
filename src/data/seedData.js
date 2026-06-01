@@ -17,7 +17,7 @@ export const seedInventory = [
 ];
 
 export const seedOrders = [
-  { id: 'ORD001', date: new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0], items: [{ name: 'Whole Milk', qty: 2, price: 60 }, { name: 'Eggs', qty: 12, price: 80 }], total: 140, status: 'Delivered', store: 'BigBasket' },
+  { id: 'ORD001', dte: new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0], items: [{ name: 'Whole Milk', qty: 2, price: 60 }, { name: 'Eggs', qty: 12, price: 80 }], total: 140, status: 'Delivered', store: 'BigBasket' },
   { id: 'ORD002', date: new Date(Date.now() - 3 * 86400000).toISOString().split('T')[0], items: [{ name: 'Chicken Breast', qty: 1, price: 200 }, { name: 'Spinach', qty: 2, price: 40 }], total: 240, status: 'Delivered', store: 'Blinkit' },
   { id: 'ORD003', date: new Date(Date.now() - 1 * 86400000).toISOString().split('T')[0], items: [{ name: 'Greek Yogurt', qty: 2, price: 90 }, { name: 'Banana', qty: 6, price: 50 }], total: 140, status: 'In Transit', store: 'Zepto' },
 ];
