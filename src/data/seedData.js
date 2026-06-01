@@ -13,7 +13,7 @@ export const seedInventory = [
   { id: '12', name: 'Frozen Peas', category: 'Frozen', quantity: 500, unit: 'g', expiryDate: new Date(Date.now() + 60 * 86400000).toISOString().split('T')[0], addedDate: new Date().toISOString().split('T')[0], calories: 81, protein: 5.4, carbs: 14, fat: 0.4, threshold: 100 },
   { id: '13', name: 'Basmati Rice', category: 'Grains', quantity: 1, unit: 'kg', expiryDate: new Date(Date.now() + 180 * 86400000).toISOString().split('T')[0], addedDate: new Date().toISOString().split('T')[0], calories: 130, protein: 2.7, carbs: 28, fat: 0.3, threshold: 200 },
   { id: '14', name: 'Banana', category: 'Fruits', quantity: 4, unit: 'pcs', expiryDate: new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0], addedDate: new Date().toISOString().split('T')[0], calories: 89, protein: 1.1, carbs: 23, fat: 0.3, threshold: 2 },
-  { id: '15', name: 'Almond Milk', category: 'Beverages', quantity: 1, unit: 'L', expiryDate: new Date(Date.now() - 1 * 86400000).toISOString().split('T')[0], addedDate: new Date().toISOString().split('T')[0], calories: 17, protein: 0.6, carbs: 0.6, fat: 1.1, threshold: 1 },
+  { id: '15', nam: 'Almond Milk', category: 'Beverages', quantity: 1, unit: 'L', expiryDate: new Date(Date.now() - 1 * 86400000).toISOString().split('T')[0], addedDate: new Date().toISOString().split('T')[0], calories: 17, protein: 0.6, carbs: 0.6, fat: 1.1, threshold: 1 },
 ];
 
 export const seedOrders = [
