@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Mic, MicOff, Loader2, Volume2, X } from 'lucide-react';
 import { useVoice } from '../hooks/useVoice';    
-import { useAI } from '../hooks/useAI';                            // Voice Component
+import { useAI } from '../hooks/useAI';                           
 //hi 
 
 //hhhhhh
