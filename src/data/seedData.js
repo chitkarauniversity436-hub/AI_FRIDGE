@@ -1,4 +1,4 @@
-export const seedInventory = [      
+export const seedInventory = [    
   { id: '1', name: 'Whole Milk', category: 'Dairy', quantity: 1, unit: 'L', expiryDate: new Date(Date.now() + 2 * 86400000).toISOString().split('T')[0], addedDate: new Date().toISOString().split('T')[0], calories: 61, protein: 3.2, carbs: 4.8, fat: 3.3, threshold: 1 },
   { id: '2', name: 'Cheddar Cheese', category: 'Dairy', quantity: 200, unit: 'g', expiryDate: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0], addedDate: new Date().toISOString().split('T')[0], calories: 403, protein: 25, carbs: 1.3, fat: 33, threshold: 50 },
   { id: '3', name: 'Eggs', category: 'Protein', quantity: 6, unit: 'pcs', expiryDate: new Date(Date.now() + 20 * 86400000).toISOString().split('T')[0], addedDate: new Date().toISOString().split('T')[0], calories: 155, protein: 13, carbs: 1.1, fat: 11, threshold: 3 },
@@ -29,3 +29,4 @@ export const seedFamilyMembers = [
 ];
 
 
+//get the items
