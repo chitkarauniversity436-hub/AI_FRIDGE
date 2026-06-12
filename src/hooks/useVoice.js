@@ -1,4 +1,4 @@
-import { useCallback } from 'react';      //get the web
+import { useCallback } from 'react';      
 
 export const useVoice = () => {
   const speak = useCallback((text) => {
