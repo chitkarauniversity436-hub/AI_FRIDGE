@@ -1,4 +1,4 @@
-import { useCallback } from 'react';   //get the call
+import { useCallback } from 'react';  
 
 // Primary model (15 RPM free). Falls back to lite (30 RPM free) on quota errors.
 const GEMINI_FLASH      = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
