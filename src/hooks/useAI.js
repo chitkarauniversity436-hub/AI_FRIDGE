@@ -19,7 +19,9 @@ const callGemini = async (url, key, prompt, maxTokens = 1500) => {
         generationConfig: { temperature: 0.8, maxOutputTokens: maxTokens },
       }),
     });
-  } 
+  } catch (networkErr) {
+        return { ok: false, status: 0, errorMsg: 'Network error: cannot reach Gemini API.' };
+  }
 
   if (!res.ok) {
     let errorMsg = `Gemini API error (HTTP ${res.status})`;
