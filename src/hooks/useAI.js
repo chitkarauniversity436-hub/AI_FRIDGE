@@ -22,7 +22,23 @@ const callGemini = async (url, key, prompt, maxTokens = 1500) => {
   } catch (networkErr) {
         return { ok: false, status: 0, errorMsg: 'Network error: cannot reach Gemini API.' };
   }
-
+  if (!res.ok) {
+    let errorMsg = `Gemini API error (HTTP ${res.status})`;
+    try {
+      const body = await res.json();
+      const detail = body?.error?.message || '';
+      if (detail.toLowerCase().includes('api key not valid') || res.status === 400) {
+        errorMsg = 'Invalid API key. Double-check the key you entered in Settings.';
+      } else if (res.status === 403) {
+        errorMsg = 'API key lacks permission. Enable "Generative Language API" in Google Cloud Console.';
+      } else if (res.status === 429) {
+        errorMsg = 'Rate limit hit on this model — retrying with a faster model...';
+      } else if (detail) {
+        errorMsg = detail;
+      }
+    } catch (_) { /* keep default */ }
+    return { ok: false, status: res.status, errorMsg };
+  }
 
 
   const data = await res.json();
