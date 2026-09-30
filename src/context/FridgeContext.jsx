@@ -7,6 +7,8 @@ const getSafeToken = () => {
   return (t === 'null' || t === 'undefined' || !t) ? null : t;
 };
 
+// not if getSafe
+
 const getSafeUser = () => {
   try {
     const u = localStorage.getItem('fridgeUser');
