@@ -19,9 +19,3 @@ If you are developing a production application, we recommed using TypeScript wit
 
 
 
-//System design
-
-//System design
-
-
-//System design
